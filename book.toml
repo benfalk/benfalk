@@ -1,0 +1,12 @@
+[book]
+authors = ["Ben Falk"]
+language = "en"
+multilingual = false
+src = "src"
+title = "My Journey Through Space and Time"
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/benfalk/benfalk"
+edit-url-template = "https://github.com/benfalk/benfalk/edit/main/{path}"
