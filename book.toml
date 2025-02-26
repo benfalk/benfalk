@@ -10,3 +10,19 @@ default-theme = "ayu"
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/benfalk/benfalk"
 edit-url-template = "https://github.com/benfalk/benfalk/edit/main/{path}"
+fold = { enable = true, level = 1 }
+
+[preprocessor.journal]
+
+[preprocessor.journal.topics.snippet]
+path_mapping = "{{kebabCase lang}}/{{kebabCase title}}"
+template = """
+
+## {{titleCase title}}
+
+```{{lang}}
+```
+"""
+[preprocessor.journal.topics.snippet.variables]
+title = { required = true }
+lang = { required = true }
