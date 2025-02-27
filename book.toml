@@ -2,7 +2,7 @@
 authors = ["Ben Falk"]
 language = "en"
 multilingual = false
-src = "src"
+src = "journal"
 title = "My Journey Through Space and Time"
 
 [output.html]

@@ -9,7 +9,9 @@ title: async callback struct
 
 ### The Structure
 
-{{#aa (snippet) ../../../crates/async_cb/src/lib.rs#mod?name=structure}}
+```rust
+{{#include ../../../crates/async_cb/src/lib.rs:3:11}}
+```
 
 First I create a `Cb<E>` type alias using `BoxFuture` from the [futures]
 crate.  Before explaining this `Cb<E>` more first it helps to make sure
@@ -37,10 +39,14 @@ pointer that takes ownership of type `E` and returns a freshly allocated
 
 ### The Implementations
 
-{{#aa (snippet) ../../../crates/async_cb/src/lib.rs#mod?name=impls}}
+```rust
+{{#include ../../../crates/async_cb/src/lib.rs:13:40}}
+```
 
 ### The Test
 
-{{#aa (snippet) ../../../crates/async_cb/src/lib.rs#mod?name=test}}
+```rust
+{{#include ../../../crates/async_cb/src/lib.rs:43:72}}
+```
 
 [futures]: https://crates.io/crates/futures
