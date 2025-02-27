@@ -1,0 +1,5 @@
+procs:
+  book:
+    shell: "mdbook serve -p 8081"
+  shell:
+    shell: "fish"

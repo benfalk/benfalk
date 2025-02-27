@@ -10,7 +10,14 @@ default-theme = "ayu"
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/benfalk/benfalk"
 edit-url-template = "https://github.com/benfalk/benfalk/edit/main/{path}"
+no-section-label = true
 fold = { enable = true, level = 1 }
+
+[output.html.playground]
+editable = true
+copyable = true
+line-numbers = true
+runnable = false
 
 [preprocessor.journal]
 
@@ -26,3 +33,21 @@ template = """
 [preprocessor.journal.topics.snippet.variables]
 title = { required = true }
 lang = { required = true }
+
+[preprocessor.anchors-aweigh]
+after = ["journal"]
+
+[preprocessor.anchors-aweigh.templates]
+snippet = """
+```rust
+{{contents}}
+```
+"""
+
+[preprocessor.anchors-aweigh.queries.rust]
+mod = """
+(mod_item
+  name: (identifier) @name (#eq? @name "{{name}}")
+  body: (declaration_list) @match
+ )
+"""

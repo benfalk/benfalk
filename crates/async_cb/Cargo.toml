@@ -1,0 +1,13 @@
+[package]
+name = "async_cb"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1.43", features = ["full"] }
+anyhow = "1.0"
+futures = "0.3"
+
+[dev-dependencies]
+mockall = "0.13"
+rstest = "0.24"
