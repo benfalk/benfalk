@@ -13,20 +13,11 @@ mod structure {
 mod impls {
     use super::Callback;
 
-    impl<E> Default for Callback<E> {
-        fn default() -> Self {
-            let do_nothing = |_| async {};
-            Self {
-                func: Box::new(move |e| Box::pin(do_nothing(e))),
-            }
-        }
-    }
-
     impl<E> Callback<E> {
         pub fn new<F, Ret>(func: F) -> Self
         where
-            Ret: Future<Output = ()> + Send + 'static,
             F: Fn(E) -> Ret + 'static,
+            Ret: Future<Output = ()> + Send + 'static,
         {
             Self {
                 func: Box::new(move |e| Box::pin(func(e))),

@@ -20,24 +20,32 @@ that it is also a type alias:
 type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
 ```
 
-This `BoxFuture` can be read as a dynamically allocated future allocated on
-the stack, it must be be _pinned_ to prevent reference from moving, and
-it has a reported lifetime.  With this understanding we can now look back
-at the `Cb<E>` type.  This can be understood as a dynamically allocated
-function pointer which receives some type `E` and returns a `BoxFuture`.
+This `BoxFuture` can be read as a dynamically allocated future on the
+stack, it must be be _pinned_ to prevent references from moving, and
+has a reported lifetime.  With this understanding we can now look back
+at the `Cb<E>` type.  This is a dynamically allocated function pointer
+which receives some owned type `E` and returns a `BoxFuture`.
 
 The `'static` lifetime is assigned to the `BoxFuture` because it owns it's
 own data and therefore can live the entire life of the application.  The
 type of `()` simply means the future returns no output.
 
-Now that we have a better understanding of the `BoxFuture` it is time to
-unpack the custom `Cb<E>` type alias.  It is a `Box` wrapping a function
-pointer that takes ownership of type `E` and returns a freshly allocated
-`BoxFuture` which we described before hand.
-
-### The Implementations
+### The Implementation
 
 {{#aa (snippet) ../../../crates/async_cb/src/lib.rs#mod?name=impls}}
+
+This `Callback<E>` can seem a little scary; however, I think after we
+break down the code it will seem more approachable.  This `new` function
+has two declared types of `F` and `Ret`.  The `F` type must be a function
+which returns a type `Ret` and the function's lifetime must be `'static`.
+The `Ret` which the function returns has to implement a `Future` that
+has no output, is `Send` safe, and has a `'static` lifetime.
+
+The `Ret` type of this signature is very important, it is what allows
+us to create our final callback.  This future return is exactly what
+can be boxed into our `Cb<E>` from before.  Inside of the method body
+a lambda is boxed up to create the `BoxFuture` when called.  With that
+we now have a callback ready.
 
 ### The Test
 
